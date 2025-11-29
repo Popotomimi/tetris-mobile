@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { router } from "expo-router";
+import { useAudioPlayer } from "expo-audio";
 import Board from "../components/Board";
 import Controls from "../components/Controls";
-import { randomTetromino } from "./lib/tetris/tetrominoes";
-import { checkCollision, mergePiece } from "./lib/tetris/collision";
-import { clearLines } from "./lib/tetris/board";
-import { rotatePiece } from "./lib/tetris/utils";
+import { randomTetromino } from "../lib/tetris/tetrominoes";
+import { checkCollision, mergePiece } from "../lib/tetris/collision";
+import { clearLines } from "../lib/tetris/board";
+import { rotatePiece } from "../lib/tetris/utils";
 
 const COLS = 10;
 const ROWS = 20;
@@ -22,7 +23,26 @@ export default function Game() {
   const [speed, setSpeed] = useState(800);
   const [level, setLevel] = useState(1);
   const [gameOver, setGameOver] = useState(false);
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const player = useAudioPlayer(require("../../assets/sounds/game.wav"));
+
+  useEffect(() => {
+    player.play();
+    player.loop = true;
+    player.volume = 0.8;
+
+    return () => {
+      player.pause();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (gameOver) {
+      player.pause();
+    }
+  }, [gameOver]);
 
   const getLevel = (score: number) => {
     if (score >= 1500) return 4;

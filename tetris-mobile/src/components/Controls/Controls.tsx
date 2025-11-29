@@ -53,15 +53,16 @@ export default function Controls({
 
       <TouchableOpacity
         onPress={onDownFast}
-        className="bg-purple-600 p-12 rounded-full"
+        className="bg-purple-600 p-10 rounded-full"
         style={{
           shadowColor: "#f1f1f1",
           shadowOffset: { width: 0, height: 3 },
           shadowOpacity: 0.8,
           shadowRadius: 6,
           elevation: 5,
-        }}
-      />
+        }}>
+        <MaterialIcons name="arrow-downward" size={29} color="white" />
+      </TouchableOpacity>
     </View>
   );
 }

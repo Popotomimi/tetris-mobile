@@ -1,5 +1,5 @@
 import { router } from "expo-router";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useFonts, VT323_400Regular } from "@expo-google-fonts/vt323";
 import Logo from "../components/Logo/logo";
 
